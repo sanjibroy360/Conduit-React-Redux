@@ -1,13 +1,16 @@
-import { CREATE_USER, SIGNIN_USER } from "../types";
+import { SIGNIN_USER, USER_INFO } from "../types";
 
 const user = {};
 
 function UserReducer(state = user, action) {
   switch (action.type) {
     case SIGNIN_USER:
-      console.log(action.payload);
+      localStorage.clear();
+      localStorage.setItem("authToken", action.payload.token);
       return action.payload;
 
+    case USER_INFO:
+      return action.payload;
     default:
       return state;
   }

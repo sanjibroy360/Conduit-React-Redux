@@ -1,12 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Loader from "./Loader";
 
 function Header(props) {
-  return props.isLoggedIn ? loggedInHeader(props) : notLoggedInHeader(props);
-}
-
-function notLoggedInHeader(props) {
+  const { isLoggedIn, userInfo } = props;
   return (
     <header>
       <div className="container header_flex">
@@ -22,68 +20,73 @@ function notLoggedInHeader(props) {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink activeClassName="active_header" to="/signin">
-              Sign in
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active_header" to="/register">
-              Sign up
-            </NavLink>
-          </li>
+          {authHeader(isLoggedIn, userInfo)}
         </ul>
       </div>
     </header>
   );
 }
 
-function loggedInHeader(props) {
-  if (!props.userInfo) {
-    return <Loader />;
+function authHeader(isLoggedIn, userInfo) {
+  var navLink = "";
+  if (isLoggedIn) {
+    navLink = (
+      <>
+        <li>
+          <NavLink activeClassName="active_header" to="/new/article">
+            New Post
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            activeClassName="active_header"
+            to={`/settings/${userInfo.username}`}
+          >
+            Settings
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            activeClassName="active_header"
+            to={`/user/profile/${userInfo.username}`}
+          >
+            {userInfo.username}
+          </NavLink>
+        </li>
+      </>
+    );
+  } else {
+    navLink = (
+      <>
+        <li>
+          <NavLink activeClassName="active_header" to="/signin">
+            Sign in
+          </NavLink>
+        </li>
+        <li>
+          <NavLink activeClassName="active_header" to="/register">
+            Sign up
+          </NavLink>
+        </li>
+      </>
+    );
   }
-  return (
-    <header>
-      <div className="container header_flex">
-        <p>
-          <Link to="/" className="logo">
-            conduit
-          </Link>
-        </p>
 
-        <ul className="nav_menu">
-          <li>
-            <NavLink activeClassName="active_header" exact to="/">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active_header" to="/article/new">
-              New Post
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              activeClassName="active_header"
-              to={`/setting/${props.userInfo.username}`}
-            >
-              Settings
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              activeClassName="active_header"
-              to={`/user/profile/${props.userInfo.username}`}
-              onClick={() => props.handleProfileVisit(props.userInfo.username)}
-            >
-              {props.userInfo.username}
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </header>
-  );
+  return navLink;
 }
 
-export default Header;
+function mapStateToProps(state) {
+  if (state.user && state.user.token) {
+    return {
+      authToken: state.user.token,
+      isLoggedIn: true,
+      userInfo: state.user,
+    };
+  } else {
+    return { authToken: null, isLoggedIn: false };
+  }
+}
+
+export default connect(mapStateToProps)(Header);
+

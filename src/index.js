@@ -7,12 +7,10 @@ import App from "./components/App.jsx";
 import "./stylesheets/style.css";
 
 ReactDOM.render(
-  <React.Fragment>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </React.Fragment>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

@@ -1,15 +1,22 @@
 import React from "react";
+import {connect} from "react-redux";
+import { filterArticleAction } from "../store/actions";
+
+
+
 
 function PopularTags(props) {
+  const {tagList, dispatch} = props;
+  console.log({tagList})
   return (
     <div className="taglist_wrapper">
       <div className="taglist_card">
         <h3 className="taglist_heading">Popular Tags</h3>
         <ul className="taglist">
-          {props.tags.map((tag) => {
+          {tagList.map((tag) => {
             return (
               <li>
-                <button className="taglist_btn" onClick={(event) => props.handleClick(tag, event)}>{tag}</button>
+                <button className="taglist_btn" onClick={ () => dispatch(filterArticleAction(tag))}>{tag}</button>
               </li>
             );
           })}
@@ -19,4 +26,8 @@ function PopularTags(props) {
   );
 }
 
-export default PopularTags;
+function mapStateToProps({tagList}) {
+  return {tagList}
+}
+
+export default connect(mapStateToProps)(PopularTags);

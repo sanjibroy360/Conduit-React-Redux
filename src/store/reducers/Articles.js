@@ -1,12 +1,20 @@
-import { GET_ALL_ARTICLE } from "../types";
+import { GET_ALL_ARTICLE, TOGGLE_FAVORITE } from "../types";
 
 const initialArticles = [];
 
 function ArticleReducer(state = initialArticles, action) {
   switch (action.type) {
     case GET_ALL_ARTICLE:
-      console.log({ inReducer: [...state, action.payload] });
-      return [...state, ...action.payload];
+      var articles = action.payload;
+      console.log("In Article Reducers", articles);
+      return articles;
+    case TOGGLE_FAVORITE:
+      return state.map((article) => {
+        if (article.slug === action.payload.slug) {
+          return action.payload;
+        }
+        return article;
+      });
     default:
       return state;
   }

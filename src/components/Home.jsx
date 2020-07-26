@@ -14,21 +14,22 @@ class Home extends Component {
     return this.props.dispatch(fetchTags(tagFetchUrl));
   }
   render() {
-    const { articles, tagList } = this.props;
+    const { articles, tagList, user, filterArticle } = this.props;
     return (
-      <div className="container">
-        <div className="home_content">
-          <ArticleList articles={articles} />
-          <PopularTags tags={tagList}/>
+      <>
+        <div className="container">
+          <div className="home_content">
+            <ArticleList  />
+            <PopularTags />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
 
-function mapStateToProp({ articles, tagList }) {
-  console.log(articles);
-  return { articles, tagList };
+function mapStateToProp({ articles, tagList, user, filterArticle }) {
+  return { articles, tagList, user, filterArticle };
 }
 
 export default connect(mapStateToProp)(Home);
