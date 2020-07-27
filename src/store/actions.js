@@ -8,24 +8,10 @@ import {
   USER_PROFILE,
   PROFILE_ARTICLE_LIST,
   USER_INFO,
-  TOGGLE_FAVORITE
+  TOGGLE_FAVORITE,
+  LOG_OUT,
+  COUNT_ARTICLES,
 } from "./types";
-
-// function fetch(url = "", method = "", authToken = "") {
-//   console.log(url, method)
-//   var data =  fetch(url, {
-//     method: method,
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((data) => data)
-//     .catch((error) => console.log(error));
-
-//   // console.log(data);
-//   return data;
-// }
 
 export function fetchArticle(url, isAuthRequired) {
   return function (dispatch) {
@@ -38,12 +24,17 @@ export function fetchArticle(url, isAuthRequired) {
         },
       })
         .then((res) => res.json())
-        .then(({ articles }) => {
-          console.log(articles, "Articles in actions");
+        .then(({ articles, articlesCount }) => {
           dispatch({
             type: GET_ALL_ARTICLE,
             payload: [...articles],
           });
+
+          dispatch({
+            type: COUNT_ARTICLES,
+            payload: articlesCount,
+          });
+          
         })
         .catch((error) => console.log(error));
     } else {
@@ -54,11 +45,14 @@ export function fetchArticle(url, isAuthRequired) {
         },
       })
         .then((res) => res.json())
-        .then(({ articles }) => {
-          console.log(articles, "Articles in actions");
+        .then(({ articles, articlesCount }) => {
           dispatch({
             type: GET_ALL_ARTICLE,
             payload: [...articles],
+          });
+          dispatch({
+            type: COUNT_ARTICLES,
+            payload: articlesCount,
           });
         })
         .catch((error) => console.log(error));
@@ -89,7 +83,6 @@ export function fetchTags(url) {
 
 export function signinUser(url, payload, history) {
   return function (dispatch) {
-    console.log(payload, "payload_before");
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -102,14 +95,12 @@ export function signinUser(url, payload, history) {
         return res.json();
       })
       .then(({ user }) => {
-        console.log(user, "signin");
         return dispatch({
           type: SIGNIN_USER,
           payload: { ...user },
         });
       })
       .catch((err) => console.log(err));
-    // .this(({ user }) => console.log(user));
   };
 }
 
@@ -139,7 +130,6 @@ export function updateUserInfo(url, payload, history) {
 // Filter Article List according to the current active tab in home page.
 
 export function filterArticleAction(payload) {
-  console.log(payload);
   return {
     type: CHANGE_TAB,
     payload,
@@ -328,7 +318,7 @@ export function fetchVisitedProfileArticles(tab = "author", username) {
 
 // Handle Follow and Unfollow user
 
-export function handleFollowAndUnfollow(url,username, method, history) {
+export function handleFollowAndUnfollow(url, username, method, history) {
   return function (dispatch) {
     fetch(url, {
       method,
@@ -338,33 +328,62 @@ export function handleFollowAndUnfollow(url,username, method, history) {
       },
     })
       .then((res) => res.json())
-      .then(({ profile }) =>{ 
-
+      .then(({ profile }) => {
         dispatch({
           type: USER_PROFILE,
           payload: profile,
-        })
-        history.push(`/user/profile/${username}`)
+        });
+        history.push(`/user/profile/${username}`);
       });
   };
 }
 
-
 export function FavoriteAndUnfavoriteArticle(url, slug, history, method) {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
         authorization: `Token ${localStorage.authToken}`,
       },
-    }).then(res => res.json()).then(({article}) => {
-      console.log(article);
-
-      dispatch({
-        type: TOGGLE_FAVORITE,
-        payload: article
-      })
     })
-  }
+      .then((res) => res.json())
+      .then(({ article }) => {
+        dispatch({
+          type: TOGGLE_FAVORITE,
+          payload: article,
+        });
+      });
+  };
+}
+
+export function LogoutAction(history) {
+  history.push("/");
+  return {
+    type: LOG_OUT,
+  };
+}
+
+export function fetchNextPageArticles(url, history) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(({ articles, articlesCount }) => {
+        dispatch({
+          type: GET_ALL_ARTICLE,
+          payload: [...articles],
+        });
+
+        dispatch({
+          type: COUNT_ARTICLES,
+          payload: articlesCount,
+        });
+      })
+      .catch((error) => console.log(error));
+  };
 }

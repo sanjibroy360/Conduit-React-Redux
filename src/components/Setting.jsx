@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateUserInfo } from "../store/actions";
+import { updateUserInfo, LogoutAction } from "../store/actions";
 
 class EditUserInfo extends React.Component {
   constructor(props) {
@@ -13,6 +13,11 @@ class EditUserInfo extends React.Component {
       email: this.props.user.email,
       image: this.props.user.image,
     };
+  }
+
+  handleLogOut = () => {
+    localStorage.clear();
+    this.props.dispatch(LogoutAction(this.props.history));
   }
 
 //   componentDidUpdate() {
@@ -104,7 +109,7 @@ class EditUserInfo extends React.Component {
               />
             </div>
           </div>
-          <button onClick={this.props.handleLogOut}>Log Out</button>
+          <button onClick={this.handleLogOut}>Log Out</button>
         </div>
       </div>
     );

@@ -671,7 +671,7 @@ hr {
 .article_title,
 .article_desc,
 .author_name,
-.create_date{
+.create_date {
   max-width: 55rem;
   overflow: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -679,7 +679,7 @@ hr {
 }
 
 .article_content,
-.article_heading  {
+.article_heading {
   max-width: 55rem;
   overflow: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -699,4 +699,39 @@ hr {
 .article_title {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Pagination */
+
+.pagination_wrapper {
+  width: 101%;
+  overflow: auto;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.page_links {
+  list-style: none;
+  padding: 0.15rem;
+  cursor: pointer;
+  border: 1px solid #555;
+}
+
+.page_links:last-child {
+  border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;
+}
+
+.page_links:first-child {
+  border-top-left-radius: 40%;
+  border-bottom-left-radius: 40%;
+  padding-left: 0.1rem;
+}
+
+.active_page_link {
+  background-color: green;
+  color: #fff;
 }

@@ -72,4 +72,4 @@ function mapStateToProps(state) {
   return { userInfo: state.user };
 }
 
-export default connect(mapStateToProps)(withRouter(App));
+export default connect(mapStateToProps)(App);

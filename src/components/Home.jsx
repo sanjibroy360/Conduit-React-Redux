@@ -3,6 +3,7 @@ import { fetchArticle, fetchTags } from "../store/actions"; //, fetchTags
 import ArticleList from "./ArticleList";
 import PopularTags from "./PopularTags";
 import React, { Component } from "react";
+import Pagination from "./Pagination";
 
 class Home extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class Home extends Component {
             <ArticleList  />
             <PopularTags />
           </div>
+          <Pagination />
         </div>
       </>
     );

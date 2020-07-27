@@ -7,7 +7,7 @@ import { filterArticleAction } from "../store/actions";
 
 function PopularTags(props) {
   const {tagList, dispatch} = props;
-  console.log({tagList})
+  
   return (
     <div className="taglist_wrapper">
       <div className="taglist_card">

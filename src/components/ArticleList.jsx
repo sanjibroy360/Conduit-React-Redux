@@ -41,6 +41,11 @@ class ArticleList extends Component {
     const method = isFavorited ? "DELETE" : "POST";
     const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
 
+    if(!this.props.user.token) {
+      console.log("condition satisfied!")
+      return this.props.history.push("/signin");
+    }
+
     this.props.dispatch(
       FavoriteAndUnfavoriteArticle(url, slug, this.props.history, method)
     );

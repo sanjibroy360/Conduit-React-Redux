@@ -6,7 +6,6 @@ function ArticleReducer(state = initialArticles, action) {
   switch (action.type) {
     case GET_ALL_ARTICLE:
       var articles = action.payload;
-      console.log("In Article Reducers", articles);
       return articles;
     case TOGGLE_FAVORITE:
       return state.map((article) => {

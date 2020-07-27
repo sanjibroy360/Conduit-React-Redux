@@ -9,3 +9,5 @@ export const COMMENT_LIST = "COMMENT_LIST";
 export const USER_PROFILE = "USER_PROFILE";
 export const PROFILE_ARTICLE_LIST = "PROFILE_ARTICLE_LIST";
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
+export const LOG_OUT = "LOG_OUT";
+export const COUNT_ARTICLES = "COUNT_ARTICLES";

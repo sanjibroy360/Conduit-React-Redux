@@ -1,4 +1,4 @@
-import { SIGNIN_USER, USER_INFO } from "../types";
+import { SIGNIN_USER, USER_INFO, LOG_OUT } from "../types";
 
 const user = {};
 
@@ -11,6 +11,9 @@ function UserReducer(state = user, action) {
 
     case USER_INFO:
       return action.payload;
+    case LOG_OUT:
+      localStorage.clear(); 
+      return {}
     default:
       return state;
   }
