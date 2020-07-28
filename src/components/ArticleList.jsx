@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchArticle } from "../store/actions"; //, fetchTags
+import { fetchArticle } from "../store/actions";
 import {
   filterArticleAction,
   FavoriteAndUnfavoriteArticle,
 } from "../store/actions";
+import {TOGGLE_FAVORITE} from "../store/types"
 import { Link, withRouter } from "react-router-dom";
 
 class ArticleList extends Component {
@@ -40,14 +41,15 @@ class ArticleList extends Component {
   handleFavorited = (e, slug, isFavorited) => {
     const method = isFavorited ? "DELETE" : "POST";
     const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
+    const targetPage = "/"
 
-    if(!this.props.user.token) {
-      console.log("condition satisfied!")
+    if (!this.props.user.token) {
+      console.log("condition satisfied!");
       return this.props.history.push("/signin");
     }
 
     this.props.dispatch(
-      FavoriteAndUnfavoriteArticle(url, slug, this.props.history, method)
+      FavoriteAndUnfavoriteArticle(url,TOGGLE_FAVORITE, slug, this.props.history, method, targetPage)
     );
   };
 
@@ -133,32 +135,28 @@ class ArticleList extends Component {
                 </div>
 
                 <div className="article_card_right">
-                  {article.favorited ? (
-                    <button
-                      className="favorited"
-                      onClick={(event) =>
-                        this.handleFavorited(
-                          event,
-                          article.slug,
-                          article.favorited
-                        )
-                      }
-                    >
-                      {article.favoritesCount}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={(event) =>
-                        this.handleFavorited(
-                          event,
-                          article.slug,
-                          article.favorited
-                        )
-                      }
-                    >
-                      {article.favoritesCount}
-                    </button>
-                  )}
+                  <button
+                    className={
+                      article.favorited
+                        ? "favorited favorite_btn"
+                        : "favorite_btn"
+                    }
+                    onClick={(event) =>
+                      this.handleFavorited(
+                        event,
+                        article.slug,
+                        article.favorited
+                      )
+                    }
+                  >
+                    {article.favorited ? (
+                      <i class="fas fa-heart like_icon active_like_icon"></i>
+                    ) : (
+                      <i className="far fa-heart like_icon"></i>
+                    )}
+
+                    {article.favoritesCount}
+                  </button>
                 </div>
 
                 <div className="card_footer">

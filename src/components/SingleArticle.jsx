@@ -5,7 +5,7 @@ import Comment from "./Comment";
 import CommentList from "./CommentList";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { fetchSingleArticle, deleteArticle } from "../store/actions.js";
+import { fetchSingleArticle, deleteArticle } from "../store/actions";
 
 class ArticlePage extends Component {
   handleDelete = () => {

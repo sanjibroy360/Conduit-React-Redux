@@ -662,8 +662,25 @@ hr {
   border-radius: 0.2rem;
 }
 
+.like_icon {
+  margin-right: 0.25rem;
+}
+
+.active_like_icon {
+  color: #fff;
+}
+
+.favorite_btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+  border: 1px solid #5cb85c;
+  color: #5cb85c;
+}
+
 .favorited {
   background-color: seagreen;
+  font-weight: bold;
   color: #fff;
   border: none;
 }

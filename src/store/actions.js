@@ -34,7 +34,6 @@ export function fetchArticle(url, isAuthRequired) {
             type: COUNT_ARTICLES,
             payload: articlesCount,
           });
-          
         })
         .catch((error) => console.log(error));
     } else {
@@ -338,7 +337,14 @@ export function handleFollowAndUnfollow(url, username, method, history) {
   };
 }
 
-export function FavoriteAndUnfavoriteArticle(url, slug, history, method) {
+export function FavoriteAndUnfavoriteArticle(
+  url,
+  type,
+  slug,
+  history,
+  method,
+  targetPage
+) {
   return function (dispatch) {
     fetch(url, {
       method,
@@ -349,8 +355,11 @@ export function FavoriteAndUnfavoriteArticle(url, slug, history, method) {
     })
       .then((res) => res.json())
       .then(({ article }) => {
+        console.log(targetPage, "targetPage");
+        history.push(targetPage);
+        console.log(article, "fav");
         dispatch({
-          type: TOGGLE_FAVORITE,
+          type,
           payload: article,
         });
       });

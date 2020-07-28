@@ -1,4 +1,4 @@
-import { USER_PROFILE, PROFILE_ARTICLE_LIST } from "../types";
+import { USER_PROFILE, PROFILE_ARTICLE_LIST, TOGGLE_PROFILE_ARTICLE_FAVORITE } from "../types";
 import { combineReducers } from "redux";
 
 const profile = {
@@ -20,6 +20,14 @@ function articleListReducer(state = profile.articleList, action) {
   switch (action.type) {
     case PROFILE_ARTICLE_LIST:
       return action.payload;
+
+    case TOGGLE_PROFILE_ARTICLE_FAVORITE:
+        return state.map((article) => {
+          if (article.slug === action.payload.slug) {
+            return action.payload;
+          }
+          return article;
+        });
     default:
       return state;
   }
@@ -32,16 +40,3 @@ var ProfileReducer = combineReducers({
 
 export default ProfileReducer;
 
-// const profile = {};
-
-// function ProfileReducer(state = profile, action) {
-//   switch (action.type) {
-//     case USER_PROFILE:
-//       return action.payload;
-
-//     default:
-//       return state;
-//   }
-// }
-
-// export default ProfileReducer;

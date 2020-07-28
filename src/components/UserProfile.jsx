@@ -26,54 +26,9 @@ class UserProfile extends Component {
     );
   };
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     if (this.props.profile.following !== prevProps.profile.following) {
-  //       this.setState({ user: this.props.profile });
-  //     }
-  //   }
-
-  //   getMyArticles = ({ articles }) => {
-  //     this.setState({ articleList: articles });
-  //   };
-
-  //   getFilteredArticles = (filterParam, event) => {
-  //     var prevBtn = document.querySelector(".active_filterParam");
-  //     prevBtn.classList.remove("active_filterParam");
-  //     event.target.classList.add("active_filterParam");
-  //     console.log({ filterParam });
-
-  //     if (filterParam === "myArticles") {
-  //       fetch(
-  //         `https://conduit.productionready.io/api/articles?author=${this.state.username}&limit=5&offset=0`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             authorization: `Token ${localStorage.getItem("authToken")}`,
-  //           },
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then(({ articles }) => this.setState({ articleList: articles }));
-  //     } else if (filterParam === "favorited") {
-  //       fetch(
-  //         `https://conduit.productionready.io/api/articles?favorited=${this.state.username}&limit=5&offset=0`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             authorization: `Token ${localStorage.getItem("authToken")}`,
-  //           },
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then(({ articles }) => this.setState({ articleList: articles }));
-  //     }
-  //   };
-
+  
   render() {
     const { currentUser, profile } = this.props;
-    // const { username } = currentUser;
     const { image, username, following } = profile.userInfo;
 
     return (

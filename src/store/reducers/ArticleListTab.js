@@ -1,4 +1,4 @@
-import { CHANGE_TAB, TOGGLE_FAVORITE } from "../types";
+import { CHANGE_TAB } from "../types";
 
 const filterArticle = "global";
 

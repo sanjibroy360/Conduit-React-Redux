@@ -3,15 +3,15 @@ import Home from "./Home";
 import Header from "./Header";
 import Signup from "./Signup";
 import Signin from "./Signin";
-import { connect } from "react-redux";
-import { USER_INFO } from "../store/types";
 import Loader from "./Loader";
-import { withRouter, Route, Switch } from "react-router-dom";
 import SingleArticle from "./SingleArticle";
 import CreateArticle from "./CreateArticle";
 import EditArticle from "./EditArticle";
 import UserProfile from "./UserProfile";
 import Setting from "./Setting";
+import { connect } from "react-redux";
+import { USER_INFO } from "../store/types";
+import { Route, Switch } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
@@ -32,21 +32,12 @@ class App extends Component {
     }
   }
 
-  // handleLogOut = () => {
-  //   this.setState({
-  //     isLoggedIn: false,
-  //     userInfo: null,
-  //     profileVisit: "",
-  //     profile: null,
-  //   });
-  //   localStorage.removeItem("currentUser");
-  //   localStorage.removeItem("authToken");
-  // };
+  
 
   render() {
     return (
       <>
-        {/* {this.props.userInfo && this.props.userInfo.username ? ( */}
+        {this.props.userInfo && this.props.userInfo.username ? (
           <>
             <Header />
             <Switch>
@@ -60,9 +51,9 @@ class App extends Component {
               <Route path="/article/:slug" component={SingleArticle} />
             </Switch>
           </>
-        {/* ) : (
+         ) : (
           <Loader />
-        )} */}
+        )} 
       </>
     );
   }

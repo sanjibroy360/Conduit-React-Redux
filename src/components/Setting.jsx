@@ -20,12 +20,12 @@ class EditUserInfo extends React.Component {
     this.props.dispatch(LogoutAction(this.props.history));
   }
 
-//   componentDidUpdate() {
-//     if (!this.state.username && this.props.user.username) {
-//       const { username, bio, email, password, image } = this.props.user;
-//       return this.setState({ username, bio, email, password, image });
-//     }
-//   }
+  componentDidUpdate(prevProps) {
+    if (this.props.user.username !== prevProps.user.username) {
+      const { username, bio, email, password, image } = this.props.user;
+      return this.setState({ username, bio, email, password, image });
+    }
+  }
 
   handleInput = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -35,21 +35,7 @@ class EditUserInfo extends React.Component {
     const url = "https://conduit.productionready.io/api/user";
     const payload = { user: this.state };
     this.props.dispatch(updateUserInfo(url, payload, this.props.history));
-    //   var
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     authorization: `Token ${localStorage.getItem("authToken")}`,
-    //   },
-    //   body: JSON.stringify( updatedUserInfo ),
-    // })
-    //   .then((res) => res.json())
-    //   .then(({user}) => {
-    //     console.log(user);
-    //     console.log(this.state.userInfo);
-    //     this.setState({ userInfo: user })
-    //   });
+    
   };
 
   render() {
@@ -59,7 +45,7 @@ class EditUserInfo extends React.Component {
           <h1 className="form_heading">Your Settings</h1>
           <div className="form">
             {" "}
-            {/*/api/users*/}
+           
             <input
               type="text"
               placeholder="URL of profile picture"
