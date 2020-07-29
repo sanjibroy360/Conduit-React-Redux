@@ -12,8 +12,19 @@ class UserProfile extends Component {
   componentDidMount() {
     const username = this.props.match.params.username;
     var url = `https://conduit.productionready.io/api/profiles/${username}`;
-
     this.props.dispatch(fetchVisitedProfileInfo(url));
+  }
+
+  componentDidUpdate() {
+    if (
+      this.props.profile.userInfo.username &&
+      this.props.profile.userInfo.username !== this.props.match.params.username
+    ) {
+      const username = this.props.match.params.username;
+      var url = `https://conduit.productionready.io/api/profiles/${username}`;
+
+      this.props.dispatch(fetchVisitedProfileInfo(url));
+    }
   }
 
   handleFollow = (isFollowing, username) => {
@@ -26,10 +37,15 @@ class UserProfile extends Component {
     );
   };
 
-  
   render() {
     const { currentUser, profile } = this.props;
     const { image, username, following } = profile.userInfo;
+    if (
+      username !== this.props.match.params.username &&
+      this.props.profile.articleList.length
+    ) {
+      return <Loader />;
+    }
 
     return (
       <div>

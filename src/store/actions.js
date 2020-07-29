@@ -355,9 +355,9 @@ export function FavoriteAndUnfavoriteArticle(
     })
       .then((res) => res.json())
       .then(({ article }) => {
-        console.log(targetPage, "targetPage");
+       
         history.push(targetPage);
-        console.log(article, "fav");
+        
         dispatch({
           type,
           payload: article,
