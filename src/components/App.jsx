@@ -28,7 +28,7 @@ class App extends Component {
         .then(({ user }) =>
           this.props.dispatch({ type: USER_INFO, payload: user })
         )
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     }
   }
 

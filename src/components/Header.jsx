@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Loader from "./Loader";
 
 function Header(props) {
   const { isLoggedIn, userInfo } = props;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Loader from "./Loader";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -32,17 +31,8 @@ class ProfileArticleList extends Component {
     const { username } = this.props.profile.userInfo;
 
     const targetPage = `/user/profile/${username}`;
-    console.log(
-      url,
-      slug,
-      this.props.history,
-      method,
-      targetPage,
-      "Profile Articles"
-    );
 
     if (!this.props.user.token) {
-      console.log("condition satisfied!");
       return this.props.history.push("/signin");
     }
 

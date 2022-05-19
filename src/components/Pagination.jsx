@@ -35,7 +35,7 @@ class Pagination extends Component {
 
   render() {
     let pageNumbers = [];
-    const { articlesCount, articles } = this.props;
+    const { articlesCount } = this.props;
     for (let i = 1; i <= Math.floor(articlesCount / 10); i++) {
       pageNumbers.push(i);
     }

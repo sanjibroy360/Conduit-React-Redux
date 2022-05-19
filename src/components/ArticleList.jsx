@@ -44,7 +44,6 @@ class ArticleList extends Component {
     const targetPage = "/"
 
     if (!this.props.user.token) {
-      console.log("condition satisfied!");
       return this.props.history.push("/signin");
     }
 

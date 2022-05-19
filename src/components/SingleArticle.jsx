@@ -25,10 +25,6 @@ class ArticlePage extends Component {
       return <Loader />;
     }
 
-    // if (this.state.comments) {
-    //   console.log(this.state.comments, "article page comments");
-    // }
-
     let {
       createdAt,
       title,

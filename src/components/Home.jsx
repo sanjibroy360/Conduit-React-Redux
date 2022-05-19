@@ -15,7 +15,6 @@ class Home extends Component {
     return this.props.dispatch(fetchTags(tagFetchUrl));
   }
   render() {
-    const { articles, tagList, user, filterArticle } = this.props;
     return (
       <>
         <div className="container">

@@ -8,7 +8,6 @@ import {
   USER_PROFILE,
   PROFILE_ARTICLE_LIST,
   USER_INFO,
-  TOGGLE_FAVORITE,
   LOG_OUT,
   COUNT_ARTICLES,
 } from "./types";
@@ -35,7 +34,7 @@ export function fetchArticle(url, isAuthRequired) {
             payload: articlesCount,
           });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     } else {
       fetch(url, {
         method: "GET",
@@ -54,7 +53,7 @@ export function fetchArticle(url, isAuthRequired) {
             payload: articlesCount,
           });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     }
   };
 }
@@ -74,7 +73,7 @@ export function fetchTags(url) {
           payload: tags,
         })
       )
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 }
 
@@ -99,7 +98,7 @@ export function signinUser(url, payload, history) {
           payload: { ...user },
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 }
 
@@ -229,7 +228,7 @@ export function createArticle(url, payload, history) {
       .then(({ article }) => {
         history.push(`/article/${article.slug}`);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 }
 
@@ -288,7 +287,7 @@ export function fetchVisitedProfileInfo(url) {
           payload: profile,
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 }
 
@@ -393,6 +392,6 @@ export function fetchNextPageArticles(url, history) {
           payload: articlesCount,
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 }
